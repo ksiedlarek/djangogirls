@@ -163,6 +163,12 @@ SSLIFY_DISABLE = DEBUG
 
 APPEND_SLASH = True
 
+# dummy settings to use with Travis CI only
+if 'TRAVIS' in os.environ:
+  SECRET_KEY='secret'
+  AWS_ACCESS_KEY_ID='AWS_KEY_ID'
+  AWS_SECRET_ACCESS_KEY='AWS_SECRET_KEY'
+
 try:
     from .local_settings import *
 except:
