@@ -148,7 +148,7 @@ DEFAULT_FROM_EMAIL = "hello@djangogirls.org"
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=core,applications',
+    '--cover-package=core,applications,jobs',
     '--with-progressive',
 ]
 
