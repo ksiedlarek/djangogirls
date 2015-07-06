@@ -194,12 +194,6 @@ JOBS_EMAIL_PASSWORD = os.environ.get('JOBS_EMAIL_PASSWORD')
 MEETUPS_EMAIL_USER = os.environ.get('MEETUPS_EMAIL_USER')
 MEETUPS_EMAIL_PASSWORD = os.environ.get('MEETUPS_EMAIL_PASSWORD')
 
-# dummy settings to use with Travis CI only
-if 'TRAVIS' in os.environ:
-  SECRET_KEY='secret'
-  AWS_ACCESS_KEY_ID='AWS_KEY_ID'
-  AWS_SECRET_ACCESS_KEY='AWS_SECRET_KEY'
-
 try:
     from .local_settings import *
 except:
