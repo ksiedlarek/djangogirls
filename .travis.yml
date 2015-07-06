@@ -2,6 +2,9 @@ language: python
 
 python:
   - "2.7"
+  - "3.4"
+
+env: SECRET_KEY='secret' AWS_ACCESS_KEY_ID='AWS_KEY_ID' AWS_SECRET_ACCESS_KEY='AWS_SECRET_KEY'
 
 install:
   - pip install -r requirements.txt
@@ -12,4 +15,3 @@ script:
 
 after_success:
   coveralls
-
