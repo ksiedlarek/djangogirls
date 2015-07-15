@@ -19,8 +19,11 @@ class PublishFlowManager(models.Manager):
 
     def get_queryset(self):
         now = timezone.now().date().strftime("%Y-%m-%d")
+        # 1=1 to ensure compatibility between different DBs
+        # this is to fix the error:
+        # 'COALESCE types boolean and integer cannot be matched'
         return super(PublishFlowManager, self).get_queryset().extra(
-            select={'not_expired': "coalesce(expiration_date > '%s', 1)" % now})
+            select={'not_expired': "coalesce(expiration_date > '%s', 1=1)" % now})
 
 
 class VisiblePublishFlowManager(PublishFlowManager):
@@ -58,7 +61,17 @@ class PublishFlowModel(models.Model):
         on_delete=models.SET_NULL
     )
     review_status = models.CharField(max_length=3, choices=STATUSES, default=OPEN)
-    reviewers_comment = models.TextField(blank=True, null=True)
+    message_to_organisation = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Write your message to the company/organisation here."
+    )
+    internal_comment = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Write your comments here. They won't be sent to "
+                  "the company/organisation."
+    )
     published_date = models.DateTimeField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     expiration_date = models.DateField(
@@ -105,7 +118,7 @@ class PublishFlowModel(models.Model):
         context = Context({
                     'status': self.get_review_status_display(),
                     'option': model_name,
-                    'reviewers_comment': self.reviewers_comment,
+                    'message_to_organisation': self.message_to_organisation,
                 })
         message_plain = get_template(
             'jobs/email_templates/status.txt').render(context)
@@ -148,7 +161,7 @@ class PublishFlowModel(models.Model):
         context = Context({
                     'status': self.get_review_status_display(),
                     'option': model_name,
-                    'reviewers_comment': self.reviewers_comment,
+                    'message_to_organisation': self.message_to_organisation,
                 })
         message_plain = get_template(
             'jobs/email_templates/status.txt').render(context)
