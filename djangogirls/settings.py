@@ -172,6 +172,7 @@ SSLIFY_DISABLE = DEBUG
 
 APPEND_SLASH = True
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
