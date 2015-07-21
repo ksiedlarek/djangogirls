@@ -40,7 +40,8 @@ INSTALLED_APPS = (
 
     'django_countries',
     'crispy_forms',
-    'datetimewidget',
+    'bootstrap3_datetime',
+
     'ckeditor',
 
     'core',
