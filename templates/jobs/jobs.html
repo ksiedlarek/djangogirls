@@ -15,6 +15,7 @@
                     <h2>
                         Job offers
                     </h2>
+                    <hr/>
                     <p>
                        Working as a software developer is a great way to become one.
                        There are lots of companies out there who are hiring,
@@ -22,7 +23,7 @@
                        who hire beginners and want to train them. They’re not targeting only women,
                        but they do care about diversity in the workplace. We trust they do the right thing.
                     </p>
-                    <p>
+                    <p class="text-info">
                        On this page, we only list offers that require no experience from companies who
                        want to hire beginners and care about diversity.
                     </p>
@@ -37,6 +38,7 @@
                         <thead>
                             <th>Company</th>
                             <th>Job title</th>
+                            <th>Location</th>
                             <th>Posted</th>
                         </thead>
                         <tbody>
@@ -50,6 +52,7 @@
                                             {{ job.title }}
                                         </a>
                                     </td>
+                                    <td>{{ job.cities }} ({{ job.country }})</td>
                                     <td>{{ job.published_date }}</td>
                                 </tr>
                             {% empty %}
