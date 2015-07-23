@@ -1,6 +1,7 @@
-from datetimewidget.widgets import DateTimeWidget
 from django import forms
+
 from ckeditor.widgets import CKEditorWidget
+from bootstrap3_datetime.widgets import DateTimePicker
 
 from jobs.models import Job, Meetup
 
@@ -17,40 +18,52 @@ class JobForm(forms.ModelForm):
             please submit a separate job opportunity per country."
     )
 
+    expiration_date = forms.DateField(
+        required=False,
+        help_text="Enter the date until which the post should be published. "
+                  "By default, it is set to 60 days from posting.",
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False}))
+
+
     class Meta:
         model = Job
         fields = ('company', 'website', 'contact_email', 'title',
-                  'description', 'cities', 'country', 'remote_work', 'relocation')
+                  'description', 'cities', 'country', 'remote_work',
+                  'relocation', 'expiration_date')
+
         # custom labels
         labels = {
             'title': 'Job title'
         }
 
 
+
 class MeetupForm(forms.ModelForm):
     meetup_start_date = forms.DateTimeField(
-        widget=DateTimeWidget(
-            attrs={'id': "start_date_time"},
-            usel10n=True,
-            bootstrap_version=3
-        )
-    )
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD HH:mm",
+                                       "pickSeconds": False}))
     meetup_end_date = forms.DateTimeField(
-        widget=DateTimeWidget(
-            attrs={'id': "end_date_time"},
-            usel10n=True,
-            bootstrap_version=3
-        )
-    )
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD HH:mm",
+                                       "pickSeconds": False}))
     description = forms.CharField(widget=CKEditorWidget())
+
     website = forms.URLField(
         initial='http://',
         help_text='Rememeber to start with http:// or https://'
     )
 
+    expiration_date = forms.DateField(
+        required=False,
+        help_text="Enter the date until which the post should be published. "
+                  "By default, it is set to 60 days from posting.",
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False}))
+
+
     class Meta:
         model = Meetup
         fields = ['title', 'organisation', 'meetup_type', 'contact_email',
             'website', 'city', 'country', 'description', 'is_recurring',
-            'recurrence', 'meetup_start_date', 'meetup_end_date'
+            'recurrence', 'meetup_start_date', 'meetup_end_date', 'expiration_date'
         ]

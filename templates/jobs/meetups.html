@@ -15,7 +15,17 @@
             <h2>
                 Meetups
             </h2>
-              {% include 'includes/_meetups_intro.html' %}
+
+
+            <hr/>
+            {% include 'includes/_meetups_intro.html' %}
+            <br/>
+            <p class="text-info">
+                On this page we only list meetups and groups that are friendly to beginners
+                and have a published Code of Conduct. If you see a meetup that doesn’t meet the requirement,
+                please do let us know. We care about you.
+            </p>
+
         <a class="btn" href="{% url 'jobs:meetup_new' %}">Add meetup</a>
         </section>
         <div class="row">

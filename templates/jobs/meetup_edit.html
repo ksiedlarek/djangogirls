@@ -2,11 +2,6 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block bootstrap_version %}
-    <link rel="stylesheet"
-              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css" />
-{% endblock bootstrap_version %}
-
 {% block extra_js %}
     {{ form.media }}
 {% endblock %}
@@ -25,6 +20,7 @@
                 <h2>
                     Add meetup
                 </h2>
+                <hr/>
                 <p>
                     Adding a meetup on Django Girls website is free. Our website is visited
                     by many enthusiastic beginner developers and we can help you reach them.
@@ -34,7 +30,8 @@
                     <li>The meetup needs to be beginner-friendly.</li>
                     <li>The meetup needs to have a published and enforced Code of Conduct.</li>
                 </ul>
-                <p>Yay!</p>
+                <p><strong>Yay!</strong></p>
+                <br/>
             </div>
             <div class="panel panel-feature-orange">
                 <div class="panel-heading">
@@ -44,7 +41,7 @@
                     <form method="POST" class="job-form">
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <button type="submit" class="save btn btn-default" name="add_meetup">Save</button>
+                        <button type="submit" class="save btn btn-warning" name="add_meetup">Save</button>
                     </form>
                 </div>
             </div>
