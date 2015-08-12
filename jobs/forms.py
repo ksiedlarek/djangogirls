@@ -17,7 +17,10 @@ class JobForm(forms.ModelForm):
             If you have opportunities in cities in more than one country, \
             please submit a separate job opportunity per country."
     )
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
     expiration_date = forms.DateField(
         required=False,
         help_text="Enter the date until which the post should be published. "
@@ -25,6 +28,7 @@ class JobForm(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False}))
 
+<<<<<<< HEAD
 
     class Meta:
         model = Job
@@ -32,6 +36,12 @@ class JobForm(forms.ModelForm):
                   'description', 'cities', 'country', 'remote_work',
                   'relocation', 'expiration_date')
 
+=======
+    class Meta:
+        model = Job
+        fields = ('company', 'website', 'contact_email', 'title',
+                  'description', 'cities', 'country', 'remote_work', 'relocation')
+>>>>>>> upstream/master
         # custom labels
         labels = {
             'title': 'Job title'
@@ -48,12 +58,18 @@ class MeetupForm(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD HH:mm",
                                        "pickSeconds": False}))
     description = forms.CharField(widget=CKEditorWidget())
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
     website = forms.URLField(
         initial='http://',
         help_text='Remember to start with http:// or https://'
     )
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
     expiration_date = forms.DateField(
         required=False,
         help_text="Enter the date until which the post should be published. "
@@ -61,7 +77,10 @@ class MeetupForm(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False}))
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
     class Meta:
         model = Meetup
         fields = ['title', 'organisation', 'meetup_type', 'contact_email',

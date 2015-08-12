@@ -37,6 +37,13 @@ INSTALLED_APPS = (
     'markdown_deux',
     'djrill',
     'django_nose',
+    'easy_thumbnails',
+
+    'django_countries',
+    'crispy_forms',
+    'bootstrap3_datetime',
+
+    'ckeditor',
 
     'django_countries',
     'crispy_forms',
@@ -109,7 +116,6 @@ SUIT_CONFIG = {
     }
 }
 
-
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY')
 AWS_STORAGE_BUCKET_NAME = 'djangogirls'
@@ -125,8 +131,19 @@ if DEBUG:
 else:
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+    STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
     MEDIA_ROOT = 'staticfiles/media'
+
+
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
+THUMBNAIL_ALIASES = {
+    '': {
+        'coach': {'size': (160, 160), 'crop': "smart"},
+        'sponsor': {'size': (204, 204), 'crop': False}
+    },
+}
+
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 STATIC_ROOT = 'staticfiles'
@@ -145,6 +162,8 @@ RAVEN_CONFIG = {
 MANDRILL_API_KEY = os.environ.get('MANDRILL_APIKEY')
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 DEFAULT_FROM_EMAIL = "hello@djangogirls.org"
+
+SLACK_API_KEY = os.environ.get('SLACK_API_KEY')
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
@@ -171,6 +190,11 @@ MARKDOWN_DEUX_STYLES = {
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SSLIFY_DISABLE = DEBUG
 
+
+# Mapbox maps to use on the Events map
+MAPBOX_MAP_ID = 'olasitarska.m8nged0f'
+
+
 APPEND_SLASH = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -184,6 +208,7 @@ CKEDITOR_CONFIGS = {
         ],
     },
 }
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.megiteam.pl'
@@ -195,6 +220,7 @@ JOBS_EMAIL_PASSWORD = os.environ.get('JOBS_EMAIL_PASSWORD')
 
 MEETUPS_EMAIL_USER = os.environ.get('MEETUPS_EMAIL_USER')
 MEETUPS_EMAIL_PASSWORD = os.environ.get('MEETUPS_EMAIL_PASSWORD')
+
 
 try:
     from .local_settings import *

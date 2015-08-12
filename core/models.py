@@ -47,6 +47,8 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         verbose_name_plural = 'Organizers'
 
     def __str__(self):
+        if self.first_name == '' and self.last_name == '': 
+            return '{0}'.format(self.email)
         return '{0} ({1})'.format(self.get_full_name(), self.email)
 
     def get_short_name(self):
@@ -165,7 +167,8 @@ class EventPageContent(models.Model):
 class EventPageMenu(models.Model):
     page = models.ForeignKey(EventPage, null=False, blank=False)
     title = models.CharField(max_length=255, null=False, blank=False)
-    url = models.CharField(max_length=255, null=False, blank=False, help_text="http://djangogirls.org/city/<the value you enter here>")
+    url = models.CharField(max_length=255, null=False, blank=False,
+                           help_text="http://djangogirls.org/city/<the value you enter here>")
     position = models.PositiveIntegerField(null=False, blank=False, help_text="Order of menu")
 
     def __str__(self):
@@ -180,11 +183,13 @@ class EventPageMenu(models.Model):
 class Sponsor(models.Model):
     event_page_content = models.ForeignKey(EventPageContent, null=False, blank=False)
     name = models.CharField(max_length=200, null=True, blank=True)
-    logo = models.ImageField(upload_to="event/sponsors/", null=True, blank=True, help_text="Make sure logo is not bigger than 200 pixels wide")
+    logo = models.ImageField(upload_to="event/sponsors/", null=True, blank=True,
+                             help_text="Make sure logo is not bigger than 200 pixels wide")
     url = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
-    position = models.PositiveIntegerField(null=False, blank=False, help_text="Position of the sponsor")
+    position = models.PositiveIntegerField(null=False, blank=False,
+                                           help_text="Position of the sponsor")
 
     def __str__(self):
         return self.name
@@ -205,8 +210,10 @@ class Sponsor(models.Model):
 class Coach(models.Model):
     event_page_content = models.ForeignKey(EventPageContent, null=False, blank=False)
     name = models.CharField(max_length=200, null=False, blank=False)
-    twitter_handle = models.CharField(max_length=200, null=True, blank=True, help_text="No @, No http://, just username")
-    photo = models.ImageField(upload_to="event/coaches/", null=True, blank=True, help_text="For best display keep it square")
+    twitter_handle = models.CharField(max_length=200, null=True, blank=True,
+                                      help_text="No @, No http://, just username")
+    photo = models.ImageField(upload_to="event/coaches/", null=True, blank=True,
+                              help_text="For best display keep it square")
     url = models.URLField(null=True, blank=True)
 
     def __str__(self):
@@ -228,13 +235,20 @@ class Coach(models.Model):
 @python_2_unicode_compatible
 class Postmortem(models.Model):
     event = models.ForeignKey(Event, null=False, blank=False)
-    attendees_count = models.IntegerField(null=False, blank=False, verbose_name="Number of attendees")
-    applicants_count = models.IntegerField(null=False, blank=False, verbose_name="Number of applicants")
+    attendees_count = models.IntegerField(null=False, blank=False,
+                                          verbose_name="Number of attendees")
+    applicants_count = models.IntegerField(null=False, blank=False,
+                                           verbose_name="Number of applicants")
 
-    discovery = models.TextField(null=True, blank=True, verbose_name="What was the most important thing you discovered during the workshop?")
-    feedback = models.TextField(null=True, blank=True, verbose_name="How we can make DjangoGirls better?")
-    costs = models.TextField(null=True, blank=True, verbose_name="What are the total costs of the event?", help_text="We only collect this information for statistics and advice for future organizers.")
-    comments = models.TextField(null=True, blank=True, verbose_name="Anything else you want to share with us?")
+    discovery = models.TextField(null=True, blank=True,
+                                 verbose_name="What was the most important thing you discovered during the workshop?")
+    feedback = models.TextField(null=True, blank=True,
+                                verbose_name="How we can make DjangoGirls better?")
+    costs = models.TextField(null=True, blank=True,
+                             verbose_name="What are the total costs of the event?",
+                             help_text="We only collect this information for statistics and advice for future organizers.")
+    comments = models.TextField(null=True, blank=True,
+                                verbose_name="Anything else you want to share with us?")
 
     def __str__(self):
         return self.event.city
