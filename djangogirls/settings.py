@@ -45,12 +45,6 @@ INSTALLED_APPS = (
 
     'ckeditor',
 
-    'django_countries',
-    'crispy_forms',
-    'bootstrap3_datetime',
-
-    'ckeditor',
-
     'core',
     'applications',
     'jobs',
